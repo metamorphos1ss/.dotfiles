@@ -48,3 +48,4 @@ autoload -Uz compinit && compinit
 setopt autocd
 setopt no_beep
 setopt hist_ignore_dups
+echo -ne '\e[5 q'
