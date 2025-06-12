@@ -7,6 +7,7 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
+touch ~/.hushlogin
 if [ "$SUDO_USER" == "admin" ] || [ "$USER" == "admin" ]; then
   echo "🔥 Продолжаем установку под пользователем admin..."
 
