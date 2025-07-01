@@ -1,0 +1,67 @@
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 11px; /* Ещё меньше для компактности */
+    color: #cdd6f4;
+    background: transparent;
+}
+
+/* Основной бар */
+window#waybar {
+    background: transparent;
+    padding: 0px 4px; /* Минимально по высоте и ширине */
+    margin: 0;
+    border: none;
+}
+
+/* Workspaces */
+#workspaces {
+    margin: 0 4px;
+}
+
+#workspaces button {
+    background: transparent;
+    color: #b4befe;
+    padding: 1px 3px;
+    margin: 0 2px;
+    border-radius: 4px;
+    transition: 0.2s;
+    border: 2px solid transparent;
+}
+
+#workspaces button:hover {
+    background-color: rgba(137, 180, 250, 0.15);
+    color: #cba6f7;
+}
+
+#workspaces button.active {
+    background-color: rgba(203, 166, 247, 0.25);
+    border-color: #cba6f7;
+    color: #cdd6f4;
+}
+
+/* Часы по центру */
+#clock {
+    color: #cba6f7;
+    font-weight: bold;
+    padding: 1px 6px;
+    background-color: rgba(203, 166, 247, 0.15);
+    border-radius: 6px;
+}
+
+/* Volume */
+#custom-volume {
+    padding: 1px 6px;
+    margin-left: 4px;
+    background-color: rgba(203, 166, 247, 0.15);
+    border-radius: 6px;
+    color: #cdd6f4;
+}
+
+/* Tray справа */
+#tray {
+    padding: 1px 6px;
+    margin-left: 4px;
+    background-color: rgba(203, 166, 247, 0.15);
+    border-radius: 6px;
+}
+

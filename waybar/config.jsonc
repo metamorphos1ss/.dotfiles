@@ -1,0 +1,34 @@
+{
+    "layer": "top",
+    "position": "top",
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/volume", "tray"],
+
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "active-only": false, // Показывает только workspace активного монитора
+        "all-outputs": false,
+        "on-click": "activate"
+    },
+
+    "clock": {
+        "format": "{:%A, %I:%M %p, %d %B}", // 12ч формат, день недели
+        "tooltip": false
+    },
+
+    "tray": {
+        "spacing": 10
+    },
+    "custom/volume": {
+        "format": "{}",
+        "tooltip": false,
+        "exec": "~/.config/waybar/scripts/volume.sh",
+        "interval": 1,
+        "on-click": "~/.config/waybar/scripts/switch.sh",
+        "on-click-middle": "pavucontrol-qt",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+    }
+}
+
