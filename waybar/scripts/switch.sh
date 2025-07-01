@@ -1,14 +1,36 @@
-#!/bin/bash
+#!/usr/bin/bash
 
-HEADPHONES_NAME="alsa_output.usb-Logitech_PRO_X_2_LIGHTSPEED_0000000000000000-00.analog-stereo"
-HEADPHONES_ID=59
-SPEAKERS_NAME="alsa_output.usb-Generic_PBS-250_20170726905923-01.analog-stereo"
-SPEAKERS_ID=34
+HEADPHONES_HUMAN="PRO X 2 LIGHTSPEED Analog Stereo"
+SPEAKERS_HUMAN="PBS-250 Analog Stereo"
 
-CURRENT_DEVICE=$(wpctl inspect @DEFAULT_AUDIO_SINK@ 2>/dev/null | grep "node.name" | awk -F'"' '{print $2}')
+HEADPHONES_SYS="alsa_output.usb-Logitech_PRO_X_2_LIGHTSPEED_0000000000000000-00.analog-stereo"
+SPEAKERS_SYS="alsa_output.usb-Generic_PBS-250_20170726905923-01.analog-stereo"
 
-if [[ "$CURRENT_DEVICE" == "$HEADPHONES_NAME" ]]; then
-  wpctl set-default "$SPEAKERS_ID"
+# Весь вывод wpctl один раз
+STATUS=$(wpctl status)
+
+current_default() {
+  echo "$1" | grep "Audio/Sink" | awk '{print $3}'
+}
+
+get_sink_id() {
+  echo "$1" | awk -v name="$2" '
+    BEGIN { in_sinks=0 }
+    /Sinks:/ { in_sinks=1; next }
+    in_sinks && /^\s*└─/ { exit }
+    in_sinks && index($0, name) {
+        match($0, /[0-9]+/)
+        print substr($0, RSTART, RLENGTH)
+        exit
+    }'
+}
+
+current_sys=$(current_default "$STATUS")
+
+if [[ "$current_sys" == "$HEADPHONES_SYS" ]]; then
+  TARGET_ID=$(get_sink_id "$STATUS" "$SPEAKERS_HUMAN")
 else
-  wpctl set-default "$HEADPHONES_ID"
+  TARGET_ID=$(get_sink_id "$STATUS" "$HEADPHONES_HUMAN")
 fi
+
+wpctl set-default "$TARGET_ID"
