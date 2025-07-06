@@ -13,8 +13,9 @@
     },
 
     "clock": {
-        "format": "{:%A, %I:%M %p, %d %B}", // 12ч формат, день недели
-        "tooltip": false
+        "format": "{:%A, %I:%M:%S %p, %d %B}", // 12ч формат, день недели
+        "tooltip": false,
+        "interval": 1
     },
 
     "tray": {
